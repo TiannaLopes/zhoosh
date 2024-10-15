@@ -1,1 +1,19 @@
+# Zhoosh Configuration
 
+export ZHOOSH_HOME="/Users/tiannaalinalopes/projects/zhoosh"
+
+# Load plugins
+source $ZHOOSH_HOME/plugins/git.plugin.zsh
+source $ZHOOSH_HOME/plugins/weather.plugin.zsh
+
+# Set the theme
+source $ZHOOSH_HOME/themes/default.zsh-theme
+
+# Add aliases
+alias ll='ls -la'
+alias gs='git status'
+alias weather="show_weather"  # Weather command
+alias time="show_time"        # Time command
+
+# Customize your prompt
+PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
