@@ -12,8 +12,8 @@ source $ZHOOSH_HOME/themes/default.zsh-theme
 # Add aliases
 alias ll='ls -la'
 alias gs='git status'
-alias weather="show_weather"  # Weather command
-alias time="show_time"        # Time command
+alias weather="show_weather"  
+alias time="show_time"        
 
 # Customize your prompt
 PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
