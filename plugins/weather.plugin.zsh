@@ -7,7 +7,7 @@ function fetch_weather_data() {
   local city=$(curl -s ipinfo.io/city)  # Auto-detect city from IP location
   api_response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric")
 
-  # Debugging: Print the raw API response
+  # Debugging: Print the raw API response (uncomment to debug)
   # echo "API Response: $api_response"
 }
 
@@ -107,7 +107,6 @@ function show_uv_index() {
 function show_all_weather() {
   fetch_weather_data
 
-  # Get all weather information
   local city=$(curl -s ipinfo.io/city)
   local temperature=$(echo "$api_response" | jq '.main.temp')
   local feels_like=$(echo "$api_response" | jq '.main.feels_like')
@@ -136,4 +135,3 @@ function show_all_weather() {
   echo -e "🌇 \033[1;33mSunset: ${sunset_time}\033[0m"
   echo "         ~  ~  ~  ~           "
 }
-
