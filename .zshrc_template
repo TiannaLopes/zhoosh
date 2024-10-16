@@ -5,15 +5,47 @@ export ZHOOSH_HOME="/Users/tiannaalinalopes/projects/zhoosh"
 # Load plugins
 source $ZHOOSH_HOME/plugins/git.plugin.zsh
 source $ZHOOSH_HOME/plugins/weather.plugin.zsh
+source $ZHOOSH_HOME/plugins/cat.plugin.zsh 
+source $ZHOOSH_HOME/plugins/cryptoprice.plugin.zsh 
+source $ZHOOSH_HOME/plugins/dadjoke.plugin.zsh 
+source $ZHOOSH_HOME/plugins/internationalspacestation.plugin.zsh 
+source $ZHOOSH_HOME/plugins/spacexlaunch.plugin.zsh  # Corrected spelling
 
 # Set the theme
 source $ZHOOSH_HOME/themes/default.zsh-theme
 
-# Add aliases
+# Add useful aliases
 alias ll='ls -la'
 alias gs='git status'
-alias weather="show_weather"  
-alias time="show_time"        
+
+# Add aliases for cat fact
+alias catfact="cat_fact"  # Removed duplicate alias "cat"
+
+# Add aliases for crypto prices
+alias crypto="crypto_price"  # Ensure crypto_price takes coin name as argument
+
+# Add aliases for dad joke
+alias dadjoke="dad_joke"  # Removed duplicate alias "dad"
+
+# Add aliases for ISS location
+alias iss="iss_location"  # Shortened alias
+
+# Add aliases for SpaceX launch
+alias spacex="spacex_launch"  # Corrected spelling
+
+# Add aliases for weather functions
+alias weather="show_weather"        # Show basic weather
+alias humidity="show_humidity"      # Show humidity level
+alias wind="show_wind"              # Show wind speed
+alias pressure="show_pressure"      # Show air pressure
+alias sunrise="show_sunrise"        # Show sunrise time
+alias sunset="show_sunset"          # Show sunset time
+alias feelslike="show_feels_like"   # Show "feels like" temperature
+alias visibility="show_visibility"  # Show visibility distance
+alias uvindex="show_uv_index"       # Show UV index
+alias weatherall="show_all_weather" # Renamed for consistency
 
 # Customize your prompt
 PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
+
+

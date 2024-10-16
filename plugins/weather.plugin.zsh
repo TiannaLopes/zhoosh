@@ -102,3 +102,38 @@ function show_uv_index() {
 
   echo -e "🌞 UV Index: \033[1;33m${uv_index}\033[0m"
 }
+
+# Show all weather details with ASCII art for a cool display
+function show_all_weather() {
+  fetch_weather_data
+
+  # Get all weather information
+  local city=$(curl -s ipinfo.io/city)
+  local temperature=$(echo "$api_response" | jq '.main.temp')
+  local feels_like=$(echo "$api_response" | jq '.main.feels_like')
+  local condition=$(echo "$api_response" | jq -r '.weather[0].description')
+  local humidity=$(echo "$api_response" | jq '.main.humidity')
+  local wind_speed=$(echo "$api_response" | jq '.wind.speed')
+  local pressure=$(echo "$api_response" | jq '.main.pressure')
+  local visibility=$(echo "$api_response" | jq '.visibility')
+  local sunrise_time=$(date -r "$(echo "$api_response" | jq '.sys.sunrise')" +"%H:%M %p")
+  local sunset_time=$(date -r "$(echo "$api_response" | jq '.sys.sunset')" +"%H:%M %p")
+
+  # Cool ASCII art for weather
+  echo "         .--.              "
+  echo "      .-(    ).            "
+  echo "     (___.__)__)           "
+  echo "      ~  ~  ~  ~           "
+  echo -e "🌍 \033[1;36mWeather in ${city}\033[0m"
+  echo -e "🌡️  \033[1;33mTemperature: ${temperature}°C\033[0m"
+  echo -e "🌡️  \033[1;33mFeels Like: ${feels_like}°C\033[0m"
+  echo -e "☁️  \033[1;34mCondition: ${condition}\033[0m"
+  echo -e "💧 \033[1;34mHumidity: ${humidity}%\033[0m"
+  echo -e "🍃 \033[1;34mWind Speed: ${wind_speed} m/s\033[0m"
+  echo -e "🔄 \033[1;34mPressure: ${pressure} hPa\033[0m"
+  echo -e "👁️  \033[1;34mVisibility: ${visibility} meters\033[0m"
+  echo -e "🌅 \033[1;33mSunrise: ${sunrise_time}\033[0m"
+  echo -e "🌇 \033[1;33mSunset: ${sunset_time}\033[0m"
+  echo "         ~  ~  ~  ~           "
+}
+
