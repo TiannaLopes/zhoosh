@@ -1,39 +1,39 @@
 name: Update README with Latest Release
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:  # Allows manual triggering
   schedule:
-   - cron: '0 * * * *'
+    - cron: '0 * * * *'  # Runs every hour at minute 0
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Correct action for checking out the repository
 
-    - name: Get latest release
-      id: get_release
-      run: |
-        latest_release=$(curl -s https://api.github.com/repos/yourusername/yourrepository/releases/latest | jq -r '.tag_name')
-        echo "Latest release is $latest_release"
-        echo "::set-output name=latest_release::$latest_release"
+      - name: Get latest release
+        id: get_release
+        run: |
+          latest_release=$(curl -s https://api.github.com/repos/yourusername/yourrepository/releases/latest | jq -r '.tag_name')
+          echo "Latest release is $latest_release"
+          echo "::set-output name=latest_release::$latest_release"
 
-    - name: Update README.md
-      run: |
-        sed -i "s/LATEST_RELEASE_PLACEHOLDER/${{ steps.get_release.outputs.latest_release }}/g" README.md
+      - name: Update README.md
+        run: |
+          sed -i "s/LATEST_RELEASE_PLACEHOLDER/${{ steps.get_release.outputs.latest_release }}/g" README.md
 
-    - name: Check for changes
-      run: |
-        if [[ -z $(git status --porcelain) ]]; then
-          echo "No changes to commit."
-          exit 0
-        fi
+      - name: Check for changes
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
 
-    - name: Commit changes
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add README.md
-        git commit -m "Update README with latest release"
-        git push
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          git commit -m "Update README with latest release"
+          git push
