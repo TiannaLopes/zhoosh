@@ -7,8 +7,8 @@ function fetch_weather_data() {
   local city=$(curl -s ipinfo.io/city)  # Auto-detect city from IP location
   api_response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric")
 
-  # Debugging: Print the raw API response (uncomment to debug)
-  # echo "API Response: $api_response"
+  # Debugging: Print the raw API response to check for issues
+  echo "API Response: $api_response"
 }
 
 # Display current weather
