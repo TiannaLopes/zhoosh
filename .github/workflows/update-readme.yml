@@ -1,9 +1,7 @@
 name: Update README with Latest Release
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 * * * *' 
+  workflow_dispatch: 
 
 jobs:
   update-readme:
@@ -15,13 +13,20 @@ jobs:
     - name: Get latest release
       id: get_release
       run: |
-        latest_release=$(curl -s https://api.github.com/repos/TiannaLopes/zhoosh/releases/latest | jq -r '.tag_name')
+        latest_release=$(curl -s https://api.github.com/repos/yourusername/yourrepository/releases/latest | jq -r '.tag_name')
         echo "Latest release is $latest_release"
         echo "::set-output name=latest_release::$latest_release"
 
     - name: Update README.md
       run: |
         sed -i "s/LATEST_RELEASE_PLACEHOLDER/${{ steps.get_release.outputs.latest_release }}/g" README.md
+
+    - name: Check for changes
+      run: |
+        if [[ -z $(git status --porcelain) ]]; then
+          echo "No changes to commit."
+          exit 0
+        fi
 
     - name: Commit changes
       run: |
