@@ -9,7 +9,7 @@ source $ZHOOSH_HOME/plugins/cat.plugin.zsh
 source $ZHOOSH_HOME/plugins/cryptoprice.plugin.zsh 
 source $ZHOOSH_HOME/plugins/dadjoke.plugin.zsh 
 source $ZHOOSH_HOME/plugins/internationalspacestation.plugin.zsh 
-source $ZHOOSH_HOME/plugins/spacexlaunch.plugin.zsh  # Corrected spelling
+source $ZHOOSH_HOME/plugins/spaceXlaunch.plugin.zsh  
 
 # Set the theme
 source $ZHOOSH_HOME/themes/default.zsh-theme

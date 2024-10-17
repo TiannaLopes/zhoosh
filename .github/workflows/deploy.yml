@@ -1,0 +1,42 @@
+name: Deploy Zhoosh
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers the workflow when a version tag is pushed (e.g., v1.0.1)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up GitHub CLI
+      uses: actions/setup-gh@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Homebrew tap repo
+      run: |
+        git clone https://github.com/TiannaLopes/homebrew-zhoosh.git ../homebrew-zhoosh
+
+    - name: Set up API Key and Environment Variables
+      run: |
+        echo "Setting up API key..."
+        export OPENWEATHER_API_KEY="${{ secrets.OPENWEATHER_API_KEY }}"
+
+    - name: Run Deploy Script
+      run: |
+        chmod +x ./deploy.sh
+        ./deploy.sh $GITHUB_REF_NAME  # Passes the tag (version) to the script
+
+    - name: Commit changes to Homebrew tap
+      working-directory: ../homebrew-zhoosh
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add Formula/zhoosh.rb
+        git commit -m "Update Zhoosh formula for version $GITHUB_REF_NAME"
+        git push origin main
