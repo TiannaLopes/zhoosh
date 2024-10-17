@@ -1,6 +1,7 @@
 name: Update README with Latest Release
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 * * * *' 
 
