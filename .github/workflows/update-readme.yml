@@ -1,0 +1,31 @@
+name: Update README with Latest Release
+
+on:
+  schedule:
+    - cron: '0 * * * *' 
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get latest release
+      id: get_release
+      run: |
+        latest_release=$(curl -s https://api.github.com/repos/TiannaLopes/zhoosh/releases/latest | jq -r '.tag_name')
+        echo "Latest release is $latest_release"
+        echo "::set-output name=latest_release::$latest_release"
+
+    - name: Update README.md
+      run: |
+        sed -i "s/LATEST_RELEASE_PLACEHOLDER/${{ steps.get_release.outputs.latest_release }}/g" README.md
+
+    - name: Commit changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add README.md
+        git commit -m "Update README with latest release"
+        git push
